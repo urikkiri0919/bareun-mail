@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+  --canvas: #f4f6f9;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --navy: #182b45;
+  --gray: #334155;
+  --muted: #64748b;
+  --blue: #2563eb;
+  --blue-soft: #eff6ff;
+  --blue-line: #bfdbfe;
+  --line: #d9e1ea;
+}
+
+body {
+  width: min(360px, 100vw);
+  margin: 0;
+  background: var(--canvas);
+  color: var(--navy);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.popup {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  margin: 7px 0 0;
+  color: var(--gray);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.status {
+  margin: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--blue-line);
+  border-left: 3px solid var(--blue);
+  border-radius: 6px;
+  background: var(--blue-soft);
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.draft-section,
+.result-section {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+label,
+h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+textarea {
+  width: 100%;
+  min-height: 132px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--gray);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+textarea:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+button {
+  min-height: 38px;
+  border: 1px solid var(--blue);
+  border-radius: 6px;
+  background: var(--blue);
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+button:disabled {
+  border-color: var(--line);
+  background: #e9edf3;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+#result-output {
+  min-height: 72px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-soft);
+}
+
+.privacy-note {
+  margin: 0;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}

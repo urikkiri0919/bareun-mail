@@ -38,25 +38,24 @@
 - Create: `docs/correction-rules.md`
 - Create: `README.md`
 - Create: `tests/test_manifest.py`
-- Create: `tests/test_correction_rules.py`
 
 **Interfaces:**
 - Consumes: 승인된 설계 문서 `docs/superpowers/specs/2026-10-22-bareun-mail-design.md`.
 - Produces: Manifest V3 팝업 실행 설정과 `docs/correction-rules.md`의 향후 보정 기준.
 
-- [ ] **Step 1: 매니페스트와 규칙의 실패 테스트를 작성한다**
+- [ ] **Step 1: 매니페스트의 실패 테스트를 작성한다**
 
   `tests/test_manifest.py`에서 아래를 검사한다.
   - `test_manifest_uses_v3_and_popup`: `manifest_version == 3`, `action.default_popup == "popup.html"`.
   - `test_default_action_shortcut`: `_execute_action.suggested_key.default == "Ctrl+Shift+E"`.
   - `test_extension_requests_no_permissions`: `permissions` 및 `host_permissions`가 없거나 빈 배열이다.
 
-  `tests/test_correction_rules.py`에서 `docs/correction-rules.md`가 사실 보존, 맞춤법·띄어쓰기, 정중한 비즈니스 문맥, 중복 축약, 모호한 내용 추측 금지, 수정 이유 없이 본문만 출력 요구를 포함하는지 검사한다.
+  보정 규칙 문서는 사람이 여섯 규칙과 대조해 검토한다. 사람용 문구 자체를 문자열 검색하는 테스트는 만들지 않는다.
 
 - [ ] **Step 2: 테스트를 실행해 실패를 확인한다**
 
   Run: `python3 -m unittest discover -s tests -v`
-  Expected: 파일이 아직 없어 manifest/rules 테스트가 실패한다.
+  Expected: `manifest.json`이 아직 없어 매니페스트 테스트가 실패한다.
 
 - [ ] **Step 3: manifest와 규칙 문서, README를 작성한다**
 
@@ -88,7 +87,7 @@
   - `#connection-status`는 API 미연결 안내를 담는다.
   - `#correct-button`은 API 연결 전 `disabled`다.
   - `#result-output`은 결과를 위한 빈 영역이며 예시 보정 결과를 하드코딩하지 않는다.
-  - `popup.css`만 로컬 참조하고 외부 스크립트·외부 폰트·API 호출 코드가 없다.
+  - `popup.html`이 `popup.css` 스타일시트를 연결한다.
 
 - [ ] **Step 2: 팝업 테스트를 실행해 실패를 확인한다**
 
@@ -102,7 +101,7 @@
 - [ ] **Step 4: 전체 테스트를 실행한다**
 
   Run: `python3 -m unittest discover -s tests -v`
-  Expected: manifest, 규칙, 팝업 계약 테스트가 모두 통과한다.
+  Expected: manifest와 팝업 계약 테스트가 모두 통과한다. 보정 규칙은 문서로 직접 검토한다.
 
 ### Task 3: Chrome 로드와 브라우저 확인
 
@@ -112,7 +111,7 @@
 
 **Interfaces:**
 - Consumes: Task 1의 매니페스트·규칙과 Task 2의 팝업.
-- Produces: Windows Chrome에서 확인된 압축해제 확장프로그램과 사용자 검토용 미리보기.
+- Produces: 실제 브라우저에서 검증한 API 미연결 팝업 미리보기와 사용자 로드 안내.
 
 - [ ] **Step 1: 전체 자동 검증을 다시 실행한다**
 
@@ -122,13 +121,13 @@
   Run: `python3 -m json.tool manifest.json`
   Expected: JSON 파싱 성공.
 
-- [ ] **Step 2: Chrome에서 압축해제 확장프로그램을 불러와 확인한다**
+- [ ] **Step 2: 팝업을 실제 브라우저에서 확인한다**
 
-  `chrome://extensions`의 개발자 모드에서 저장소 폴더를 불러온다. 도구 모음에서 팝업이 열리고 API 미연결 안내가 보이는지, `Ctrl+Shift+E`가 팝업을 열고 Chrome 단축키 설정에서 변경 가능한지 확인한다. 짧은 한국어·영문·숫자 혼합 텍스트를 입력해도 가로 넘침이나 임의 결과가 없는지 확인한다.
+  이 세션의 Chrome에서 `popup.html`을 열어 짧은 한국어·영문·숫자 혼합 초안을 넣는다. API 미연결 안내, 비활성 버튼, 빈 결과, 좁은 창에서의 가로 넘침 없음, 외부 요청 없음이 보이는지 확인한다. 사용자 Windows Chrome에 압축해제 확장프로그램을 설치하고 물리 단축키가 열리는지 확인하는 절차는 README로 안내하며, 실제 사용자 프로필에서 확인하지 않은 동작은 검증했다고 말하지 않는다.
 
 - [ ] **Step 3: 외부 전송·권한을 확인하고 사용자에게 검토를 요청한다**
 
-  매니페스트에 host/메일 권한이 없고, 팝업 코드에 네트워크 호출과 저장 코드가 없는지 확인한다. 브라우저에서 화면을 보여주고 사용자가 확인하기 전에는 커밋하거나 푸시하지 않는다.
+  매니페스트에 권한이 없고, 팝업에 스크립트·저장 동작이 없으며 브라우저에서 외부 요청이 없는지 확인한다. 브라우저에서 화면을 보여주고 사용자가 확인하기 전에는 커밋하거나 푸시하지 않는다.
 
 ## 실행·저장소 게이트
 

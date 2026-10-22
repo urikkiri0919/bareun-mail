@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "바른메일",
+  "version": "0.1.0",
+  "description": "업무 메일의 맞춤법과 문맥을 다듬는 크롬 확장프로그램",
+  "action": {
+    "default_title": "바른메일",
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E"
+      }
+    }
+  }
+}
